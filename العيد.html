@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>بطاقة تهنئة بالعيد - إدارة الأمن والسلامة بجازان</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Noto Naskh Arabic', serif;
+            background-color: #f0f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            width: 600px;
+            height: 850px;
+            background-image: url('https://i.imgur.com/PbOSZLG.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.15);
+        }
+        .content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        .name-section {
+            margin-top: 380px;
+            text-align: center;
+            width: 100%;
+        }
+        .name-display {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 25px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        input {
+            padding: 15px;
+            width: 70%;
+            margin: 20px 0;
+            border: 2px solid #2980b9;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+            background-color: rgba(255,255,255,0.9);
+            font-family: 'Noto Naskh Arabic';
+        }
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="name-section">
+                <div class="name-display" id="nameDisplay">زميلنا العزيز: <span id="nameOutput">__________</span></div>
+                <input type="text" id="nameInput" placeholder="اكتب اسمك هنا">
+                <div class="buttons">
+                    <button onclick="updateName()">عرض التهاني</button>
+                    <button onclick="downloadCard()">حفظ البطاقة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        function updateName() {
+            const name = document.getElementById('nameInput').value.trim();
+            document.getElementById('nameOutput').textContent = name || "__________";
+        }
+        
+        function downloadCard() {
+            const card = document.querySelector('.card');
+            
+            html2canvas(card, {
+                scale: 2,
+                logging: false,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'تهنئة-عيد-الفطر-جازان.png';
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
